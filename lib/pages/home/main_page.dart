@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:toko_patu_app/constant/theme.dart';
+import 'package:toko_patu_app/models/user_model.dart';
+import 'package:toko_patu_app/pages/home/cart_page.dart';
 import 'package:toko_patu_app/pages/home/chat_page.dart';
 import 'package:toko_patu_app/pages/home/home_page.dart';
 import 'package:toko_patu_app/pages/home/profile_page.dart';
@@ -16,7 +17,7 @@ class MainPage extends StatelessWidget {
       body: PersistentTabView(
         context,
         controller: PersistentTabController(initialIndex: 0),
-        screens: _buildScreens(),
+        screens: buildScreens(),
         items: _navBarsItems(),
         confineInSafeArea: true,
         backgroundColor: bgColor4,
@@ -40,18 +41,21 @@ class MainPage extends StatelessWidget {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle: NavBarStyle.style15,
+        // hideNavigationBar: buildScreens() == buildScreens()[2] ? true : false,
+        
       ),
     );
   }
 
-  List<Widget> _buildScreens() {
-    return [
+  List<Widget> buildScreens() {
+    List<Widget> screens = [
       HomePage(),
-      WishListPage(),
-      Container(color: Colors.green),
       ChatPage(),
+      CartPage(),
+      WishListPage(),
       ProfilePge(),
     ];
+    return screens;
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -69,7 +73,10 @@ class MainPage extends StatelessWidget {
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.add,color: Colors.white,),
+        icon: const Icon(
+          Icons.shopping_bag,
+          color: Colors.white,
+        ),
         activeColorPrimary: secondaryColor,
         inactiveColorPrimary: Colors.grey,
       ),

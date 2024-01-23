@@ -31,6 +31,7 @@ class User {
   DateTime updatedAt;
   String profilePhotoUrl;
   String token; // Tidak menggunakan null safety untuk token
+  String password;
 
   User({
     required this.id,
@@ -45,11 +46,12 @@ class User {
     required this.updatedAt,
     required this.profilePhotoUrl,
     required this.token, // Properti token tanpa tanda tanya
+    required this.password,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'] ,
+      id: json['id'],
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       username: json['username'] ?? '',
@@ -57,13 +59,16 @@ class User {
       emailVerifiedAt: json['email_verified_at'] != null
           ? DateTime.parse(json['email_verified_at'])
           : null,
-      currentTeamId: json['current_team_id'] != null ?int.parse(json['current_team_id']) : 0,
+      currentTeamId: json['current_team_id'] != null
+          ? int.parse(json['current_team_id'])
+          : 0,
       profilePhotoPath: json['profile_photo_path'] ?? '',
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
       profilePhotoUrl: json['profile_photo_url'] ?? '',
       token:
           json['token'] ?? '', // Menggunakan nilai default jika token tidak ada
+      password: json['password'] ?? '',
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:toko_patu_app/bloc/bloc/auth_bloc.dart';
+import 'package:toko_patu_app/bloc/auth/auth_bloc.dart';
+import 'package:toko_patu_app/bloc/product/product_bloc.dart';
 import 'package:toko_patu_app/constant/theme.dart';
 
 import 'routes/routes.dart';
@@ -16,7 +17,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=>AuthBloc()..add(MoveSplashEvent())),
+        BlocProvider(
+          create: (context) => AuthBloc()..add(AuthGetCurrentUserEvent()),
+        ),
+        BlocProvider(
+          create: (context) => ProductBloc(),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: router,

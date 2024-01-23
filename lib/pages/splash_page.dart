@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:toko_patu_app/pages/login_page.dart';
+import 'package:toko_patu_app/bloc/product/product_bloc.dart';
 import 'package:toko_patu_app/routes/routes.dart';
 
-import '../bloc/bloc/auth_bloc.dart';
+import '../bloc/auth/auth_bloc.dart';
 
 class SplashPage extends StatelessWidget {
   static const routeName = '/splash';
@@ -17,11 +15,21 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
-        
         listener: (context, state) {
-        if (state is AuthSplashSuccess) {
-          context.goNamed(Routes.login);
-        }
+          if (state is AuthSuccess) {
+            context.goNamed(Routes.home);
+            // print("Dispatching ShowCategoryEvent.");
+            // context.read<ProductBloc>().add(ShowCategoryEvent());
+
+            // print("Dispatching ShowProductEvent.");
+            // context.read<ProductBloc>().add(ShowProductEvent());
+          }
+
+          if (state is AuthErrorCredential) {
+            Future.delayed(Duration(seconds: 2), () {
+              context.goNamed(Routes.login);
+            });
+          }
         },
         child: Center(
           child: Image.asset(

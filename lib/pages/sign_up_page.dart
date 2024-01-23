@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:toko_patu_app/bloc/bloc/auth_bloc.dart';
+import 'package:toko_patu_app/bloc/auth/auth_bloc.dart';
 import 'package:toko_patu_app/models/sign_up_model.dart';
 import 'package:toko_patu_app/routes/routes.dart';
 
